@@ -33,7 +33,7 @@ const Auth = () => {
 
     useEffect(() => {
         if (localStorage.getItem("token")) {
-            switch (localStorage.getItem("userTypes")) {
+            switch (localStorage.getItem("userType")) {
                 case "CUSTOMER":
                     navigate("/");
                     break;
@@ -58,7 +58,7 @@ const Auth = () => {
             );
 
             toast.success("Welcome to the app!");
-            switch (data.userTypes) {
+            switch (data.userType) {
                 case "CUSTOMER":
                     navigate("/");
                     break;
