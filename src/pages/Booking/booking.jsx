@@ -47,18 +47,25 @@ const Booking = () => {
                 setSelectedSeats={setSelectedSeats}
             />
             {selectedSeats.length > 0 && (
-                <h5 className="text-center">
-                    You have selected{" "}
-                    <span className="count">{selectedSeats.length}</span> seats
-                    for the price of{" "}
-                    <span className="total">
-                        ₹{selectedSeats.length * TICKET_PRICE}
-                    </span>
-                </h5>
+                <>
+                    <h5 className="text-center">
+                        You have selected{" "}
+                        <span className="count">{selectedSeats.length}</span>{" "}
+                        seats for the price of{" "}
+                        <span className="total">
+                            ₹{selectedSeats.length * TICKET_PRICE}
+                        </span>
+                    </h5>
+                    <div className="text-center mt-5">
+                        <Payment
+                            movie={movieDetails}
+                            theatre={theatreDetails}
+                            noOfSeats={selectedSeats.length}
+                            totalCost={selectedSeats.length * TICKET_PRICE}
+                        />
+                    </div>
+                </>
             )}
-            <div className="text-center mt-5">
-                <Payment />
-            </div>
         </>
     );
 };
