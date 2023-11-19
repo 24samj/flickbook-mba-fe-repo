@@ -121,7 +121,9 @@ const Auth = () => {
                         <div className="col">
                             {!showSignup && (
                                 <div>
-                                    <h4 className="text-center">Login</h4>
+                                    <h4 className="text-center">
+                                        Login to FlickBook
+                                    </h4>
                                     <form onSubmit={handleLogin}>
                                         <div className="input-group m-1">
                                             <input
@@ -156,7 +158,7 @@ const Auth = () => {
                                             className="signup-btn text-right text-info"
                                             style={{ cursor: "pointer" }}
                                             onClick={toggleSignup}>
-                                            Don't have an account? Signup
+                                            Don't have an account? Signup.
                                         </div>
                                         <div className="auth-error-msg text-danger text center">
                                             {errorMessage}
@@ -166,7 +168,9 @@ const Auth = () => {
                             )}
                             {showSignup && (
                                 <div>
-                                    <h4 className="text-center">Signup</h4>
+                                    <h4 className="text-center">
+                                        Signup for FlickBook
+                                    </h4>
                                     <form onSubmit={handleSignup}>
                                         <div className="input-group m-1">
                                             <input
