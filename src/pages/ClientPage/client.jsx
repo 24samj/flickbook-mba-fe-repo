@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { fetchAllMovies } from "../../api/movie";
 import { fetchAllTheatres } from "../../api/theatre";
 import { CLIENT, CUSTOMER } from "../../constants";
-import MovieTable from "../../components/movieTable";
-import TheatreTable from "../../components/theatreTable";
 import Navbar from "../../components/Navbar";
+
+const TheatreTable = lazy(() => import("../../components/theatreTable"));
+const MovieTable = lazy(() => import("../../components/movieTable"));
 
 const Client = () => {
     const [movieList, setMovieList] = useState([]);
@@ -29,13 +30,18 @@ const Client = () => {
         <>
             <Navbar />
             <div className="container my-5">
-                <TheatreTable
-                    theaterList={theaterList}
-                    userType={CLIENT}
-                    movieList={movieList}
-                />
+                <Suspense fallback={<div>Loading.....</div>}>
+                    <TheatreTable
+                        theaterList={theaterList}
+                        userType={CLIENT}
+                        movieList={movieList}
+                    />
+                </Suspense>
+
                 <div className="mt-5">
-                    <MovieTable movieList={movieList} userType={CLIENT} />
+                    <Suspense fallback={<div>Loading.....</div>}>
+                        <MovieTable movieList={movieList} userType={CLIENT} />
+                    </Suspense>
                 </div>
             </div>
         </>

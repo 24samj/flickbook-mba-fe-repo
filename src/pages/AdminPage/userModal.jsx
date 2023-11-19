@@ -52,7 +52,7 @@ const UserModal = ({
                             onChange={changeUserDetails}
                             name="userType">
                             <option value="CUSTOMER">CUSTOMER</option>
-                            <option value="ENGINEER">ENGINEER</option>
+                            <option value="CLIENT">CLIENT</option>
                             <option value="ADMIN">ADMIN</option>
                         </Form.Select>
                     </div>

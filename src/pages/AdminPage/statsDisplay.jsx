@@ -10,7 +10,6 @@ const StatsDisplay = ({
     userList,
     theaterList,
 }) => {
-    console.log(movieList);
     return (
         <div className="row mt-3 mb-4">
             <div className="col">

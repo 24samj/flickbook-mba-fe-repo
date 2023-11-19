@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { fetchAllBookings } from "../../api/booking";
 import { fetchAllMovies } from "../../api/movie";
 import { fetchAllTheatres } from "../../api/theatre";
 import { fetchAllUsers } from "../../api/user";
 import Navbar from "../../components/Navbar";
 import { ADMIN } from "../../constants";
-import BookingTable from "./bookingTable";
-import MovieTable from "../../components/movieTable";
 import StatsDisplay from "./statsDisplay";
-import TheatreTable from "../../components/theatreTable";
 import UserModal from "./userModal";
-import UserTable from "./userTable";
+import { lazy } from "react";
+
+const TheatreTable = lazy(() => import("../../components/theatreTable"));
+const BookingTable = lazy(() => import("./bookingTable"));
+const MovieTable = lazy(() => import("../../components/movieTable"));
+const UserTable = lazy(() => import("./userTable"));
 
 const Admin = () => {
     const [selectedItem, setSelectedItem] = useState("movies");
@@ -63,24 +65,35 @@ const Admin = () => {
                     theaterList={theaterList}
                 />
                 {selectedItem === "movies" && (
-                    <MovieTable
-                        movieList={movieList}
-                        userType={ADMIN}
-                        setMovieList={setMovieList}
-                    />
+                    <Suspense fallback={<div>Loading.....</div>}>
+                        <MovieTable
+                            movieList={movieList}
+                            userType={ADMIN}
+                            setMovieList={setMovieList}
+                        />
+                    </Suspense>
                 )}
                 {selectedItem === "theaters" && (
-                    <TheatreTable
-                        theaterList={theaterList}
-                        userType={ADMIN}
-                        movieList={[]}
-                    />
+                    <Suspense fallback={<div>Loading.....</div>}>
+                        <TheatreTable
+                            theaterList={theaterList}
+                            userType={ADMIN}
+                            movieList={[]}
+                        />
+                    </Suspense>
                 )}
                 {selectedItem === "bookings" && (
-                    <BookingTable bookingList={bookingList} />
+                    <Suspense fallback={<div>Loading.....</div>}>
+                        <BookingTable bookingList={bookingList} />
+                    </Suspense>
                 )}
                 {selectedItem === "users" && (
-                    <UserTable userList={userList} setUserList={setUserList} />
+                    <Suspense fallback={<div>Loading.....</div>}>
+                        <UserTable
+                            userList={userList}
+                            setUserList={setUserList}
+                        />
+                    </Suspense>
                 )}
             </div>
         </>

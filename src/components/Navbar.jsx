@@ -18,7 +18,7 @@ const Navbar = () => {
                 <div className="col-lg-2 col-sm-12">
                     <Link to="/" className="text-decoration-none">
                         <div className="display-6 text-danger py-1">
-                            ShowTime
+                            FlickBook
                         </div>
                     </Link>
                 </div>
