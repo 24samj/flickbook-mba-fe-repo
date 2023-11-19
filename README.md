@@ -38,10 +38,6 @@ Express is employed to build the backend APIs, and Node.js powers the server-sid
 
 MongoDB serves as the database management system, ensuring scalable and efficient storage for the application's data.
 
-### • **Authentication and Authorization:**
-
-Robust AuthN and AuthZ mechanisms are implemented to ensure secure access for users based on their roles.
-
 ### • **CSS:**
 
 Cascading Style Sheets are utilized for styling and layout, enhancing the visual appeal and usability of the application.
