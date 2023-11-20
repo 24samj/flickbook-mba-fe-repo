@@ -24,11 +24,6 @@ const UserTable = ({ userList, setUserList }) => {
     const updateUserDetail = async (event) => {
         event.preventDefault();
         try {
-            console.log(
-                "Updating user details for user ID:",
-                userDetail.userId,
-                typeof userDetail.userId
-            );
             await AxiosInstance.put(`/mba/api/v1/users/${userDetail.userId}`, {
                 userType: userDetail.userType,
                 userStatus: userDetail.userStatus,
