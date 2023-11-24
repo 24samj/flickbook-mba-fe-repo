@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { createBooking } from "../../api/booking";
 import { makePayment } from "../../api/payment";
 import GIF from "./../../assets/simpson.gif";
+import { toast } from "react-toastify";
 
 const Payment = ({ movie, theatre, noOfSeats, totalCost }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +34,9 @@ const Payment = ({ movie, theatre, noOfSeats, totalCost }) => {
 
     const bookAndPay = async () => {
         const bookingDetail = await makeBooking();
+        console.log(bookingDetail);
         await initPayment(bookingDetail._id, bookingDetail.totalCost);
+        toast.success("Booking confirmed.");
     };
 
     const handleHide = () => {
