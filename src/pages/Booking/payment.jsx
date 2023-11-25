@@ -23,10 +23,11 @@ const Payment = ({ movie, theatre, noOfSeats, totalCost }) => {
         return data;
     }
 
-    async function initPayment(bookingId, totalCost) {
+    async function initPayment(bookingId, totalCost, noOfSeats) {
         const data = await makePayment({
             bookingId,
             amount: totalCost,
+            noOfSeats,
         });
 
         setPaymentDetail(data);
