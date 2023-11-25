@@ -23,6 +23,7 @@ const SeatMap = ({
             setSelectedSeats(
                 selectedSeats.filter((selectedSeat) => selectedSeat !== seatId)
             );
+
             return;
         }
 
@@ -49,9 +50,9 @@ const SeatMap = ({
                                     ? "occupied"
                                     : ""
                             }`}
-                            onClick={() =>
-                                handleClick(isSelected, isOccupied, seat)
-                            }></span>
+                            onClick={(event) => {
+                                handleClick(isSelected, isOccupied, seat);
+                            }}></span>
                     );
                 })}
             </div>

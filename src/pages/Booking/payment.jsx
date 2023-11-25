@@ -4,33 +4,36 @@ import { useNavigate } from "react-router-dom";
 import { createBooking } from "../../api/booking";
 import { makePayment } from "../../api/payment";
 import GIF from "./../../assets/simpson.gif";
-import { toast } from "react-toastify";
 
-const Payment = ({ movie, theatre, noOfSeats, totalCost }) => {
+const Payment = ({ selectedSeats, movie, theatre, noOfSeats, totalCost }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
     const [bookingDetail, setBookingDetail] = useState({});
     const [paymentDetail, setPaymentDetail] = useState({});
     const navigate = useNavigate();
 
     async function makeBooking() {
+        setIsPaymentProcessing(true);
         const data = await createBooking({
             theatreId: theatre._id,
             movieId: movie._id,
             timing: new Date().toLocaleDateString(),
             noOfSeats: noOfSeats,
+            seats: selectedSeats,
         });
         setBookingDetail(data);
         return data;
     }
 
-    async function initPayment(bookingId, totalCost, noOfSeats) {
+    async function initPayment(bookingId, totalCost, noOfSeats, seats) {
         const data = await makePayment({
             bookingId,
             amount: totalCost,
             noOfSeats,
+            seats: seats,
         });
-
         setPaymentDetail(data);
+        setIsPaymentProcessing(false);
     }
 
     const bookAndPay = async () => {
@@ -40,12 +43,11 @@ const Payment = ({ movie, theatre, noOfSeats, totalCost }) => {
             bookingDetail.totalCost,
             bookingDetail.noOfSeats
         );
-        toast.success("Booking confirmed.");
     };
 
     const handleHide = () => {
         setIsOpen(false);
-        if (paymentDetail.status === "SUCCESS") {
+        if (paymentDetail.status === "CONFIRMED") {
             navigate("/");
         }
     };
@@ -90,7 +92,7 @@ const Payment = ({ movie, theatre, noOfSeats, totalCost }) => {
                                 <p className="fw-bolder">₹{totalCost}</p>
                             </div>
                         </div>
-                        {paymentDetail.status === "SUCCESS" ? (
+                        {paymentDetail.status === "CONFIRMED" ? (
                             <>
                                 <img alt="ticket" src={GIF} />
                                 <div className="bg-success py-1 text-white text-center shadow-lg rounded-3 bg-opacity-75">
@@ -119,8 +121,11 @@ const Payment = ({ movie, theatre, noOfSeats, totalCost }) => {
                         ) : (
                             <button
                                 className="btn btn-danger"
-                                onClick={bookAndPay}>
-                                Confirm payment
+                                onClick={bookAndPay}
+                                disabled={isPaymentProcessing}>
+                                {isPaymentProcessing
+                                    ? "Processing payment..."
+                                    : "Confirm payment"}
                             </button>
                         )}
                     </div>

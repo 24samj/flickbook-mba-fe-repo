@@ -58,6 +58,7 @@ const Booking = () => {
                     </h5>
                     <div className="text-center mt-5">
                         <Payment
+                            selectedSeats={selectedSeats}
                             movie={movieDetails}
                             theatre={theatreDetails}
                             noOfSeats={selectedSeats.length}

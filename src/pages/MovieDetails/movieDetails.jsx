@@ -13,6 +13,7 @@ const MovieDetails = () => {
 
     async function fetchMovieDetails(id) {
         const data = await getMovie(id);
+        console.log(data);
         setMovieDetail(data);
     }
 
@@ -41,7 +42,7 @@ const MovieDetails = () => {
                                 className="card"
                                 width={300}
                                 height={450}
-                                alt={movieDetail.name}
+                                alt={movieDetail.name || "Movie poster"}
                             />
                         </div>
                         <div className="col">
@@ -63,8 +64,10 @@ const MovieDetails = () => {
                             </h5>
                             <hr />
                             <h4>Cast</h4>
-                            {movieDetail?.casts?.map((name) => (
-                                <li className="list-group-item">{name}</li>
+                            {movieDetail?.casts?.map((name, index) => (
+                                <li key={index + 1} className="list-group-item">
+                                    {name}
+                                </li>
                             ))}
                             <div className="text-center my-3">
                                 {
