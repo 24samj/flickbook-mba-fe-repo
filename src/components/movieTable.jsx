@@ -30,7 +30,6 @@ const MovieTable = ({ movieList, userType, setMovieList }) => {
                 m._id === movie._id ? movie : m
             );
             setMovieList(updatedMovieList);
-            console.log(updatedMovieList);
         } catch (error) {
             console.log(error);
         }

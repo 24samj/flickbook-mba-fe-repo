@@ -34,8 +34,11 @@ const Payment = ({ movie, theatre, noOfSeats, totalCost }) => {
 
     const bookAndPay = async () => {
         const bookingDetail = await makeBooking();
-        console.log(bookingDetail);
-        await initPayment(bookingDetail._id, bookingDetail.totalCost);
+        await initPayment(
+            bookingDetail._id,
+            bookingDetail.totalCost,
+            bookingDetail.noOfSeats
+        );
         toast.success("Booking confirmed.");
     };
 

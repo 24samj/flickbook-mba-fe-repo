@@ -52,7 +52,7 @@ const Admin = () => {
             <Navbar />
             <div className="container bg-light">
                 <h3 className="text-center mt-2">
-                    Welcome, Admin ${localStorage.getItem("name")}!
+                    Welcome, Admin {localStorage.getItem("name")}!
                 </h3>
                 <p className="text-center text-secondary">
                     Take a quick look at the stats below

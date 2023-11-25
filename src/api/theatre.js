@@ -13,7 +13,6 @@ export const fetchAllTheatres = async function () {
 export const getTheatre = async (id) => {
     try {
         const { data } = await AxiosInstance.get(`/mba/api/v1/theatres/${id}`);
-        console.log(data);
         return data;
     } catch (ex) {
         toast.error(ex.message);

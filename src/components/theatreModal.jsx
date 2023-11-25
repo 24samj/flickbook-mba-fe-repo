@@ -15,7 +15,6 @@ const TheatreModal = ({
     userType,
     movieList,
 }) => {
-    console.log(theatreDetail);
     return (
         <Modal
             show={showAddTheatreModal || showEditTheatreModal}

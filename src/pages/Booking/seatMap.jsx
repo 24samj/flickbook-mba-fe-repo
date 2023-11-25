@@ -14,8 +14,6 @@ const SeatMap = ({
         .fill(0)
         .map((el, index) => index + 1);
 
-    console.log(SEATS);
-
     function handleClick(isSelected, isOccupied, seatId) {
         if (isOccupied) {
             return;
