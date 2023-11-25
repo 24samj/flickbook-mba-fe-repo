@@ -31,7 +31,7 @@ const LandingPage = () => {
             <Slider />
             {!isLoading ? (
                 <div className="container my-4">
-                    <p className="fw-bolder">Recommended movies</p>
+                    <p className="fw-bolder m-2">Recommended movies</p>
                     <div className="row">
                         {movieList.map((movie) => (
                             <Movie movie={movie} key={movie._id} />

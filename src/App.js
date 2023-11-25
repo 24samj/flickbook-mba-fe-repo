@@ -28,6 +28,10 @@ function App() {
         switch (true) {
             case pathname === "/login":
                 return "Login";
+            case pathname === "/admin":
+                return "Admin";
+            case pathname === "/client":
+                return "Client";
             case pathname.includes("/movie") && pathname.endsWith("/details"):
                 return "Movie details";
             case pathname.includes("/buytickets"):

@@ -57,7 +57,7 @@ const Auth = () => {
                 loginFormValues.password
             );
 
-            toast.success("Welcome to the app!");
+            toast.success("Logged in successfully!");
             switch (data.userTypes) {
                 case "CUSTOMER":
                     navigate("/");

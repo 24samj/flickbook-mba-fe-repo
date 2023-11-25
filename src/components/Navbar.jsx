@@ -1,5 +1,6 @@
 import { Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -9,6 +10,7 @@ const Navbar = () => {
 
     function onLogout() {
         localStorage.clear();
+        toast.success("Logged out successfully.");
         navigate("/");
     }
 
