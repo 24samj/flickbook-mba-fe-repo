@@ -4,19 +4,31 @@
 
 FlickBook MBA is an innovative Movie Booking Application designed to provide a seamless cinematic experience for users, administrators, and hall owners. This platform caters to three distinct user roles, offering comprehensive functionalities for Admins with system oversight, Hall Owners managing screenings and theatres, and Users seamlessly booking tickets and tracking their bookings.
 
-## Key features:
+## Instructions to Run the App
 
-### • Diverse User Roles:
+After cloning, run
+
+### `npm install`
+
+After installation of node_modules, run
+
+### `npm start`
+
+Ensure that the backend is running as well (if the backend is also hosted on your computer).
+
+## Key features
+
+### • **Diverse User Roles:**
 
 Admins (system oversight)
 Hall Owners (manage screenings and theatres)
 Users (book tickets and track bookings)
 
-### • Secure Access:
+### • **Secure Access:**
 
 Ensures secure access with AuthN and AuthZ.
 
-### • Data Management and UI:
+### • **Data Management and UI:**
 
 Backed by MongoDB for the database, with Express handling APIs, and a user-friendly React frontend.
 
