@@ -35,6 +35,7 @@ const SeatMap = ({
     return (
         <div className="cinema">
             <div className="screen" />
+            <div className="screenNotice">All eyes up here, please!</div>
             <div className="seats">
                 {SEATS.map((seat) => {
                     const isSelected = selectedSeats.includes(seat);
@@ -48,7 +49,7 @@ const SeatMap = ({
                                     ? "selected"
                                     : isOccupied
                                     ? "occupied"
-                                    : ""
+                                    : "available"
                             }`}
                             onClick={(event) => {
                                 handleClick(isSelected, isOccupied, seat);

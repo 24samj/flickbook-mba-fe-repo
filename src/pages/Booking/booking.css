@@ -17,7 +17,7 @@
 }
 
 .seats {
-    margin-top: 50px;
+    margin-top: 2vw;
     display: grid;
     grid-gap: 5px;
     align-items: center;
@@ -37,13 +37,19 @@
 }
 
 .selected {
+    cursor: pointer;
     background-color: #e03444 !important;
     color: white;
 }
 
 .occupied {
+    cursor: not-allowed;
     background-color: #626262 !important;
     color: white;
+}
+
+.available {
+    cursor: pointer;
 }
 
 .count,
@@ -52,7 +58,7 @@
 }
 
 .cinema {
-    margin: 50px;
+    margin: 2vw;
     perspective: 200px;
     display: grid;
     place-items: center;
@@ -64,6 +70,12 @@
     background-color: aliceblue;
     transform: rotateX(-30deg) scale(1.1);
     box-shadow: 0 3px 10px 2px;
+}
+
+.screenNotice {
+    margin-top: 1vw;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .seat:nth-of-type(8n + 2) {

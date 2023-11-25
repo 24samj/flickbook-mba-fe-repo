@@ -15,7 +15,6 @@ const Booking = () => {
     const [theatreDetails, setTheatreDetails] = useState({});
     const [selectedSeats, setSelectedSeats] = useState([]);
 
-    // TODO remove after sometime
     const occupiedSeats = [10, 12, 50, 33, 28, 47];
 
     async function fetchMovieDetails(id) {
@@ -48,15 +47,16 @@ const Booking = () => {
             />
             {selectedSeats.length > 0 && (
                 <>
-                    <h5 className="text-center">
+                    <h5 className="text-center mb-0">
                         You have selected{" "}
                         <span className="count">{selectedSeats.length}</span>{" "}
                         seats for the price of{" "}
                         <span className="total">
                             ₹{selectedSeats.length * TICKET_PRICE}
                         </span>
+                        .
                     </h5>
-                    <div className="text-center mt-5">
+                    <div className="text-center mt-4">
                         <Payment
                             selectedSeats={selectedSeats}
                             movie={movieDetails}
