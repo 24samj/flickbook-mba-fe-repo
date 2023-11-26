@@ -129,8 +129,17 @@ const Auth = () => {
                 style={{
                     background: `url(${wallpaper}) center/cover no-repeat`,
                 }}>
-                <div className="glass"></div>
                 <div className="loginCard m-5 p-5">
+                    <div
+                        className="text-center"
+                        style={{
+                            fontSize: "36px",
+                            color: "white",
+                            fontWeight: "900",
+                            fontFamily: "Montserrat",
+                        }}>
+                        FlickBook
+                    </div>
                     <div className="row m-2">
                         <div className="col">
                             {!showSignup && (
@@ -138,7 +147,7 @@ const Auth = () => {
                                     <h4
                                         className="text-center"
                                         style={{ color: "white" }}>
-                                        Login to FlickBook
+                                        Login
                                     </h4>
                                     <form onSubmit={handleLogin}>
                                         <div className="input-group m-1">
@@ -192,7 +201,7 @@ const Auth = () => {
                                     <h4
                                         className="text-center"
                                         style={{ color: "white" }}>
-                                        Signup for FlickBook
+                                        Signup
                                     </h4>
                                     <form onSubmit={handleSignup}>
                                         <div className="input-group m-1">
