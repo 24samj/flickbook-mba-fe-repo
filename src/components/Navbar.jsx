@@ -1,6 +1,7 @@
 import { Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import navLogo from "../assets/navbar-logo.png";
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -18,7 +19,10 @@ const Navbar = () => {
         <div className="bg-dark px-2 sticky-top">
             <div className="row text-center">
                 <div className="col-lg-2 col-sm-12">
-                    <Link to="/" className="text-decoration-none">
+                    <Link
+                        to="/"
+                        className="d-flex align-items-center text-decoration-none">
+                        <img src={navLogo} style={{ height: "40px" }} alt="" />
                         <div className="display-6 text-danger py-1">
                             FlickBook
                         </div>
