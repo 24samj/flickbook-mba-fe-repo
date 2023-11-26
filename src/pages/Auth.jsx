@@ -263,7 +263,7 @@ const Auth = () => {
                                                 }
                                                 name="userType">
                                                 <option disabled value="">
-                                                    Select User Type
+                                                    Select a user type
                                                 </option>
                                                 <option
                                                     className="listOption"
