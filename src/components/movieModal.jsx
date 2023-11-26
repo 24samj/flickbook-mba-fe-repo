@@ -114,7 +114,7 @@ const MovieModal = ({
                             onChange={changeMovieDetails}
                             required
                             className="form-select form-select-sm">
-                            <option value="RELEASED">RELEASED </option>
+                            <option value="RELEASED">RELEASED</option>
                             <option value="UNRELEASED">UNRELEASED</option>
                             <option value="BLOCKED">BLOCKED</option>
                         </select>
@@ -136,7 +136,6 @@ const MovieModal = ({
                             className="form-control"
                         />
                     </div>
-
                     <br />
                     <div className="input-group justify-content-center">
                         <div className="m-1">

@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { fetchAllMovies } from "../../api/movie";
 import { fetchAllTheatres } from "../../api/theatre";
-import { CLIENT, CUSTOMER } from "../../constants";
+import { CLIENT } from "../../constants";
 import Navbar from "../../components/Navbar";
 
 const TheatreTable = lazy(() => import("../../components/theatreTable"));
@@ -37,7 +37,6 @@ const Client = () => {
                         movieList={movieList}
                     />
                 </Suspense>
-
                 <div className="mt-5">
                     <Suspense fallback={<div>Loading.....</div>}>
                         <MovieTable movieList={movieList} userType={CLIENT} />

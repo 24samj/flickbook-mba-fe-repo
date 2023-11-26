@@ -2,18 +2,18 @@ import "@coreui/coreui/dist/css/coreui.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import LandingPage from "./pages/LandingPage/landingPage";
+import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
+import { ADMIN, CLIENT, CUSTOMER } from "./constants";
 import Auth from "./pages/Auth";
 import Client from "./pages/ClientPage/client";
 import Admin from "./pages/AdminPage/admin";
 import MovieDetails from "./pages/MovieDetails/movieDetails";
 import MovieTheatres from "./pages/MovieTheatres/movieTheatres";
-import "./App.css";
 import Booking from "./pages/Booking/booking";
 import RequireAuth from "./util/RequireAuth";
-import { ADMIN, CLIENT, CUSTOMER } from "./constants";
 import Unauthorized from "./components/Unauthorised";
-import { useEffect } from "react";
+import "./App.css";
 
 function App() {
     const location = useLocation();
@@ -36,7 +36,7 @@ function App() {
                 return "Movie details";
             case pathname.includes("/buytickets"):
                 return "Select a theatre";
-            case pathname.includes("movie"):
+            case pathname.includes("/movie"):
                 return "Select seats";
             default:
                 return "Homepage";

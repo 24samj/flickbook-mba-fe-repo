@@ -1,14 +1,17 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { signIn } from "../api/auth";
 import { AxiosInstance } from "../util/axiosInstances";
+import wallpaper from "../assets/4k_mba_wallpaper.jpg";
+import "./Auth.css";
 
 const Auth = () => {
     const [showSignup, setShowSignup] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [isProcessing, setIsProcessing] = useState(false);
+
     const navigate = useNavigate();
     const initialLoginFormValues = {
         userId: "",
@@ -52,6 +55,7 @@ const Auth = () => {
         event.preventDefault();
 
         try {
+            setIsProcessing(true);
             const data = await signIn(
                 loginFormValues.userId,
                 loginFormValues.password
@@ -77,12 +81,15 @@ const Auth = () => {
                 return;
             }
             toast.error(ex.response.data.message);
+        } finally {
+            setIsProcessing(false);
         }
     };
 
     const handleSignup = async (event) => {
         event.preventDefault();
         try {
+            setIsProcessing(true);
             await AxiosInstance.post("/mba/api/v1/auth/signup", {
                 userId: signupFormValues.userId,
                 password: signupFormValues.password,
@@ -94,6 +101,8 @@ const Auth = () => {
             toast.success("Signup done. Please login with your credentials!");
         } catch (ex) {
             setErrorMessage(ex.response.data.message);
+        } finally {
+            setIsProcessing(false);
         }
     };
 
@@ -115,20 +124,27 @@ const Auth = () => {
 
     return (
         <div id="loginPage">
-            <div className="bg-danger d-flex justify-content-center align-items-center vh-100">
-                <div className="card m-5 p-5">
+            <div
+                className="loginContainer d-flex justify-content-center align-items-center vh-100"
+                style={{
+                    background: `url(${wallpaper}) center/cover no-repeat`,
+                }}>
+                <div className="glass"></div>
+                <div className="loginCard m-5 p-5">
                     <div className="row m-2">
                         <div className="col">
                             {!showSignup && (
                                 <div>
-                                    <h4 className="text-center">
+                                    <h4
+                                        className="text-center"
+                                        style={{ color: "white" }}>
                                         Login to FlickBook
                                     </h4>
                                     <form onSubmit={handleLogin}>
                                         <div className="input-group m-1">
                                             <input
                                                 type="text"
-                                                className="form-control"
+                                                className="textField form-control"
                                                 placeholder="User Id"
                                                 name="userId"
                                                 value={loginFormValues.userId}
@@ -139,7 +155,7 @@ const Auth = () => {
                                         <div className="input-group m-1">
                                             <input
                                                 type="password"
-                                                className="form-control"
+                                                className="textField form-control"
                                                 placeholder="Password"
                                                 name="password"
                                                 value={loginFormValues.password}
@@ -147,15 +163,20 @@ const Auth = () => {
                                                 required
                                             />
                                         </div>
-                                        <div className="input-group m-1">
+                                        <div className=" input-group m-1">
                                             <input
                                                 type="submit"
-                                                className="form-control btn btn-danger"
-                                                value="Login"
+                                                className="submitBtn form-control btn btn-danger"
+                                                value={
+                                                    isProcessing
+                                                        ? "Logging in..."
+                                                        : "Login"
+                                                }
+                                                disabled={isProcessing}
                                             />
                                         </div>
                                         <div
-                                            className="signup-btn text-right text-info"
+                                            className="signupPrompt signup-btn text-right text-info"
                                             style={{ cursor: "pointer" }}
                                             onClick={toggleSignup}>
                                             Don't have an account? Signup.
@@ -168,14 +189,16 @@ const Auth = () => {
                             )}
                             {showSignup && (
                                 <div>
-                                    <h4 className="text-center">
+                                    <h4
+                                        className="text-center"
+                                        style={{ color: "white" }}>
                                         Signup for FlickBook
                                     </h4>
                                     <form onSubmit={handleSignup}>
                                         <div className="input-group m-1">
                                             <input
                                                 type="text"
-                                                className="form-control"
+                                                className="textField form-control"
                                                 placeholder="User Id"
                                                 value={signupFormValues.userId}
                                                 name="userId"
@@ -188,7 +211,7 @@ const Auth = () => {
                                         <div className="input-group m-1">
                                             <input
                                                 type="text"
-                                                className="form-control"
+                                                className="textField form-control"
                                                 placeholder="Username"
                                                 name="username"
                                                 required
@@ -203,7 +226,7 @@ const Auth = () => {
                                         <div className="input-group m-1">
                                             <input
                                                 type="text"
-                                                className="form-control"
+                                                className="textField form-control"
                                                 name="email"
                                                 placeholder="Email"
                                                 required
@@ -217,7 +240,7 @@ const Auth = () => {
                                             <input
                                                 type="password"
                                                 name="password"
-                                                className="form-control"
+                                                className="textField form-control"
                                                 placeholder="Password"
                                                 value={
                                                     signupFormValues.password
@@ -230,6 +253,7 @@ const Auth = () => {
                                         </div>
                                         <div className="input-group m-1">
                                             <Form.Select
+                                                className="textField"
                                                 aria-label="User Type Selection"
                                                 value={
                                                     signupFormValues.userType
@@ -238,14 +262,22 @@ const Auth = () => {
                                                     handleSignupFormChange
                                                 }
                                                 name="userType">
-                                                <option>User Type</option>
-                                                <option value="CUSTOMER">
+                                                <option disabled value="">
+                                                    Select User Type
+                                                </option>
+                                                <option
+                                                    className="listOption"
+                                                    value="CUSTOMER">
                                                     CUSTOMER
                                                 </option>
-                                                <option value="CLIENT">
+                                                <option
+                                                    className="listOption"
+                                                    value="CLIENT">
                                                     CLIENT
                                                 </option>
-                                                <option value="ADMIN">
+                                                <option
+                                                    className="listOption"
+                                                    value="ADMIN">
                                                     ADMIN
                                                 </option>
                                             </Form.Select>
@@ -254,12 +286,17 @@ const Auth = () => {
                                         <div className="input-group m-1">
                                             <input
                                                 type="submit"
-                                                className="form-control btn btn-danger"
-                                                value="Sign up"
+                                                className="submitBtn form-control btn btn-danger"
+                                                value={
+                                                    isProcessing
+                                                        ? "Signing up..."
+                                                        : "Signup"
+                                                }
+                                                disabled={isProcessing}
                                             />
                                         </div>
                                         <div
-                                            className="signup-btn text-center text-info"
+                                            className="loginPrompt signup-btn text-center text-info"
                                             style={{ cursor: "pointer" }}
                                             onClick={toggleSignup}>
                                             Already have an account? Log in.

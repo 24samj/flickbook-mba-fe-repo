@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import { getMovie } from "../../api/movie";
 import { getTheatre } from "../../api/theatre";
 import { Legend } from "./legend";
+import { TICKET_PRICE } from "../../constants";
 import Navbar from "../../components/Navbar";
 import SeatMap from "./seatMap";
-import { TICKET_PRICE } from "../../constants";
-import "./booking.css";
 import Payment from "./payment";
+import "./booking.css";
 
 const Booking = () => {
     const { movieId, theatreId } = useParams();

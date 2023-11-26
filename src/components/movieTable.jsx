@@ -2,8 +2,8 @@ import MaterialTable from "@material-table/core";
 import { Add, Delete, Edit } from "@material-ui/icons";
 import { useState } from "react";
 import { ADMIN } from "../constants";
-import MovieModal from "./movieModal";
 import { AxiosInstance } from "../util/axiosInstances";
+import MovieModal from "./movieModal";
 
 const MovieTable = ({ movieList, userType, setMovieList }) => {
     const [movieDetail, setMovieDetail] = useState({});

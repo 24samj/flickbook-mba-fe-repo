@@ -1,6 +1,6 @@
 import { cilBarcode, cilMovie, cilPeople, cilVideo } from "@coreui/icons";
-import CIcon from "@coreui/icons-react";
 import { CWidgetStatsD } from "@coreui/react";
+import CIcon from "@coreui/icons-react";
 
 const StatsDisplay = ({
     selectedItem,
