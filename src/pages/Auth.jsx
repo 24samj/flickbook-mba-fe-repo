@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { signIn } from "../api/auth";
 import { AxiosInstance } from "../util/axiosInstances";
 import wallpaper from "../assets/4k_mba_wallpaper.jpg";
+import logo from "../assets/mba_logo.png";
 import "./Auth.css";
 
 const Auth = () => {
@@ -130,7 +131,12 @@ const Auth = () => {
                     background: `url(${wallpaper}) center/cover no-repeat`,
                 }}>
                 <div className="loginCard m-5 p-5">
-                    <div
+                    <img
+                        src={logo}
+                        style={{ height: "200px" }}
+                        alt="flickbook logo"
+                    />
+                    {/* <div
                         className="text-center"
                         style={{
                             fontSize: "36px",
@@ -139,7 +145,7 @@ const Auth = () => {
                             fontFamily: "Montserrat",
                         }}>
                         FlickBook
-                    </div>
+                    </div> */}
                     <div className="row m-2">
                         <div className="col">
                             {!showSignup && (
