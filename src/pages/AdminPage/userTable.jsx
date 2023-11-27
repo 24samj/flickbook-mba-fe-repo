@@ -6,12 +6,12 @@ import { AxiosInstance } from "../../util/axiosInstances";
 import UserModal from "./userModal";
 
 const UserTable = ({ userList, setUserList }) => {
-    const [showUserModal, setShowUserModal] = useState(false);
     const [userDetail, setUserDetail] = useState({});
+    const [showUserModal, setShowUserModal] = useState(false);
 
     const editUser = (user) => {
-        setShowUserModal(true);
         setUserDetail(user);
+        setShowUserModal(true);
     };
 
     const changeUserDetails = (event) => {
@@ -24,10 +24,10 @@ const UserTable = ({ userList, setUserList }) => {
     const updateUserDetail = async (event) => {
         event.preventDefault();
         try {
-            console.log("Updating user details:", userDetail);
             await AxiosInstance.put(
                 `/mba/api/v1/users/details/${userDetail.userId}`,
                 {
+                    userId: userDetail.userId,
                     userType: userDetail.userType,
                     userStatus: userDetail.userStatus,
                     name: userDetail.name,

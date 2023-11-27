@@ -13,7 +13,7 @@ const MovieDetails = () => {
 
     async function fetchMovieDetails(id) {
         const data = await getMovie(id);
-        console.log(data);
+
         setMovieDetail(data);
     }
 

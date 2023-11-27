@@ -77,6 +77,7 @@ const Admin = () => {
                     <Suspense fallback={<div>Loading.....</div>}>
                         <TheatreTable
                             theaterList={theaterList}
+                            setTheatreList={setTheaterList}
                             userType={ADMIN}
                             movieList={[]}
                         />

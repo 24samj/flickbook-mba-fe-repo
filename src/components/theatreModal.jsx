@@ -12,6 +12,7 @@ const TheatreModal = ({
     addTheatre,
     theatreDetail,
     changeTheatreDetails,
+    updateOrAddTheatreDetail,
     userType,
     movieList,
 }) => {
@@ -129,7 +130,9 @@ const TheatreModal = ({
                             </Button>
                         </div>
                         <div className="m-1">
-                            <Button type="submit" variant="primary">
+                            <Button
+                                variant="primary"
+                                onClick={updateOrAddTheatreDetail}>
                                 {showEditTheatreModal
                                     ? "Edit Theatre"
                                     : "Add Theatre"}

@@ -13,7 +13,12 @@ const Client = () => {
 
     async function fetchTheaters() {
         const theatres = await fetchAllTheatres();
-        setTheaterList(theatres);
+
+        const filteredTheatres = theatres.filter(
+            (theatre) => theatre["ownerId"] === localStorage.getItem("_id")
+        );
+
+        setTheaterList(filteredTheatres);
     }
 
     async function fetchMovies() {
@@ -33,6 +38,7 @@ const Client = () => {
                 <Suspense fallback={<div>Loading.....</div>}>
                     <TheatreTable
                         theaterList={theaterList}
+                        setTheatreList={setTheaterList}
                         userType={CLIENT}
                         movieList={movieList}
                     />
