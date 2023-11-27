@@ -31,9 +31,16 @@ const TheatreTable = ({
 
     const deleteTheatre = async (theatre) => {
         try {
-            console.log("deleting threathe ", theatre._id);
+            console.log("deleting threathe ", theatre);
+            await AxiosInstance.delete(
+                `/mba/api/v1/theatres/${theatreDetail._id}`
+            );
+            toast.success("Theatre deleted successfully");
         } catch (ex) {
-            console.log("error");
+            console.log(ex);
+            toast.error(
+                "Error occurred while deleting theatre. Please try again in a minute."
+            );
         }
     };
 
@@ -96,7 +103,11 @@ const TheatreTable = ({
     return (
         <>
             <MaterialTable
-                title="Theaters"
+                title={
+                    localStorage.getItem("userTypes") === "CLIENT"
+                        ? "Theatres owned by you"
+                        : "Theatres"
+                }
                 data={theaterList}
                 columns={[
                     {

@@ -11,7 +11,6 @@ export const fetchAllUsers = async function () {
 };
 
 export const updateUserDetails = async (user) => {
-    console.log(user);
     try {
         const { data } = await AxiosInstance.put(
             `/mba/api/v1/users/details/${user._id}`,

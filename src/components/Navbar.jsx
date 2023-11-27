@@ -21,7 +21,7 @@ const Navbar = () => {
                 <div className="col-lg-2 col-sm-12">
                     <Link
                         to="/"
-                        className="d-flex align-items-center text-decoration-none">
+                        className="d-flex gap-2 align-items-center text-decoration-none">
                         <img src={navLogo} style={{ height: "40px" }} alt="" />
                         <div className="display-6 text-danger py-1">
                             FlickBook

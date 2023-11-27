@@ -15,7 +15,7 @@ const Client = () => {
         const theatres = await fetchAllTheatres();
 
         const filteredTheatres = theatres.filter(
-            (theatre) => theatre["ownerId"] === localStorage.getItem("_id")
+            (theatre) => theatre.ownerId === localStorage.getItem("_id")
         );
 
         setTheaterList(filteredTheatres);
