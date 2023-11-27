@@ -9,11 +9,13 @@ export const fetchAllUsers = async function () {
         toast.error("Error in fetching users");
     }
 };
-
+console.log("api page reached");
 export const updateUserDetails = async (user) => {
+    console.log("inside function");
+    console.log(user);
     try {
         const { data } = await AxiosInstance.put(
-            `/mba/api/v1/users/${user._id}`,
+            `/mba/api/v1/users/details/${user._id}`,
             user
         );
         return data;
