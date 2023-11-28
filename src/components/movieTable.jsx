@@ -1,14 +1,16 @@
 import MaterialTable from "@material-table/core";
 import { Add, Delete, Edit } from "@material-ui/icons";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { ADMIN } from "../constants";
 import { AxiosInstance } from "../util/axiosInstances";
 import MovieModal from "./movieModal";
 
-const MovieTable = ({ movieList, userType, setMovieList }) => {
+const MovieTable = ({ movieList, userType, setMovieList, fetchMovies }) => {
     const [movieDetail, setMovieDetail] = useState({});
     const [showAddMovieModal, setShowAddMovieModal] = useState(false);
     const [showEditMovieModal, setShowEditMovieModal] = useState(false);
+    const [isRequestProcessing, setIsRequestProcessing] = useState(false);
 
     const addMovie = (theatre) => {
         setMovieDetail({});
@@ -20,18 +22,34 @@ const MovieTable = ({ movieList, userType, setMovieList }) => {
         setShowEditMovieModal(true);
     };
 
-    const editMovieDetails = async (movie) => {
+    const editMovieDetails = async (event) => {
+        event.preventDefault();
+
         try {
+            setIsRequestProcessing(true);
             const response = await AxiosInstance.put(
-                `/mba/api/v1/movies/${movie._id}`,
-                movie
+                `/mba/api/v1/movies/${movieDetail._id}`,
+                {
+                    name: movieDetail.name,
+                    description: movieDetail.description,
+                    director: movieDetail.director,
+                    posterUrl: movieDetail.posterUrl,
+                    trailerUrl: movieDetail.trailerUrl,
+                    releaseStatus: movieDetail.releaseStatus,
+                    releaseDate: movieDetail.releaseDate,
+                }
             );
             const updatedMovieList = movieList.map((m) =>
-                m._id === movie._id ? movie : m
+                m._id === movieDetail._id ? movieDetail : m
             );
+            toast.success("Movie updated SUccessfully!");
+            // fetchMovies();
             setMovieList(updatedMovieList);
         } catch (error) {
             console.log(error);
+        } finally {
+            resetState();
+            setIsRequestProcessing(false);
         }
     };
 
@@ -52,11 +70,18 @@ const MovieTable = ({ movieList, userType, setMovieList }) => {
 
     const changeMovieDetails = (event) => {
         if (event.target.name === "releaseDate") {
-            const [year, month, day] = event.target.value.split("-");
-            setMovieDetail({
-                ...movieDetail,
-                [event.target.name]: `${day}-${month}-${year}`,
-            });
+            const selectedDate = event.target.value;
+
+            if (selectedDate) {
+                const [day, month, year] = selectedDate.split("-");
+
+                if (day && month && year) {
+                    setMovieDetail({
+                        ...movieDetail,
+                        [event.target.name]: `${year}-${month}-${day}`,
+                    });
+                }
+            }
         } else {
             setMovieDetail({
                 ...movieDetail,
@@ -68,16 +93,20 @@ const MovieTable = ({ movieList, userType, setMovieList }) => {
     const resetState = () => {
         setShowEditMovieModal(false);
         setShowAddMovieModal(false);
-        setShowEditMovieModal(false);
-
-        setMovieDetail({});
+        setMovieDetail({
+            ...movieDetail,
+            releaseDate: "",
+        });
     };
 
     return (
         <>
             <MaterialTable
                 title="Movies"
-                data={movieList}
+                data={movieList.map((movie) => ({
+                    ...movie,
+                    id: movie._id,
+                }))}
                 columns={[
                     {
                         title: "Poster",
@@ -142,6 +171,7 @@ const MovieTable = ({ movieList, userType, setMovieList }) => {
                 movieDetail={movieDetail}
                 changeMovieDetails={changeMovieDetails}
                 editMovieDetails={editMovieDetails}
+                isRequestProcessing={isRequestProcessing}
             />
         </>
     );

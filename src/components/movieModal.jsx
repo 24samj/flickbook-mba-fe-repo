@@ -9,6 +9,7 @@ const MovieModal = ({
     movieDetail,
     changeMovieDetails,
     editMovieDetails,
+    isRequestProcessing,
 }) => {
     const formatDate = (dateString) => {
         const [day, month, year] = dateString.split("-");
@@ -144,9 +145,16 @@ const MovieModal = ({
                             </Button>
                         </div>
                         <div className="m-1">
-                            <Button type="submit" variant="primary">
+                            <Button
+                                variant="primary"
+                                onClick={editMovieDetails}
+                                disabled={isRequestProcessing}>
                                 {showEditMovieModal
-                                    ? "Edit Movie"
+                                    ? isRequestProcessing
+                                        ? "Editing movie..."
+                                        : "Edit Movie"
+                                    : isRequestProcessing
+                                    ? "Adding movie..."
                                     : "Add Movie"}
                             </Button>
                         </div>

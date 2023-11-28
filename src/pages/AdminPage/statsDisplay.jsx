@@ -8,7 +8,7 @@ const StatsDisplay = ({
     movieList,
     bookingList,
     userList,
-    theaterList,
+    theatreList,
 }) => {
     return (
         <div className="row mt-3 mb-4">
@@ -18,7 +18,10 @@ const StatsDisplay = ({
                     icon={
                         <CIcon className="my-4" icon={cilMovie} height={52} />
                     }
-                    style={{ "--cui-card-cap-bg": "#00aced" }}
+                    style={{
+                        "--cui-card-cap-bg": "#00aced",
+                        cursor: "pointer",
+                    }}
                     values={[{ title: "Movies", value: movieList.length }]}
                     color={selectedItem === "movies" ? "success" : undefined}
                     onClick={() => setSelectedItem("movies")}
@@ -30,7 +33,10 @@ const StatsDisplay = ({
                     icon={
                         <CIcon className="my-4" icon={cilBarcode} height={52} />
                     }
-                    style={{ "--cui-card-cap-bg": "#00aced" }}
+                    style={{
+                        "--cui-card-cap-bg": "#00aced",
+                        cursor: "pointer",
+                    }}
                     values={[{ title: "Bookings", value: bookingList.length }]}
                     color={selectedItem === "bookings" ? "success" : undefined}
                     onClick={() => setSelectedItem("bookings")}
@@ -42,7 +48,10 @@ const StatsDisplay = ({
                     icon={
                         <CIcon className="my-4" icon={cilPeople} height={52} />
                     }
-                    style={{ "--cui-card-cap-bg": "#00aced" }}
+                    style={{
+                        "--cui-card-cap-bg": "#00aced",
+                        cursor: "pointer",
+                    }}
                     values={[{ title: "Users", value: userList.length }]}
                     color={selectedItem === "users" ? "success" : undefined}
                     onClick={() => setSelectedItem("users")}
@@ -54,10 +63,13 @@ const StatsDisplay = ({
                     icon={
                         <CIcon className="my-4" icon={cilVideo} height={52} />
                     }
-                    style={{ "--cui-card-cap-bg": "#00aced" }}
-                    values={[{ title: "Theaters", value: theaterList.length }]}
-                    onClick={() => setSelectedItem("theaters")}
-                    color={selectedItem === "theaters" ? "success" : undefined}
+                    style={{
+                        "--cui-card-cap-bg": "#00aced",
+                        cursor: "pointer",
+                    }}
+                    values={[{ title: "Theatres", value: theatreList.length }]}
+                    onClick={() => setSelectedItem("theatres")}
+                    color={selectedItem === "theatres" ? "success" : undefined}
                 />
             </div>
         </div>

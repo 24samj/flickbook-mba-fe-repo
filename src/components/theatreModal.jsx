@@ -15,6 +15,8 @@ const TheatreModal = ({
     updateOrAddTheatreDetail,
     userType,
     movieList,
+    isRequestProcessing,
+    setIsRequestProcessing,
 }) => {
     return (
         <Modal
@@ -102,20 +104,25 @@ const TheatreModal = ({
                                     field: "releaseStatus",
                                 },
                             ]}
-                            data={movieList}
+                            data={movieList.map((movie) => ({
+                                ...movie,
+                                id: movie._id,
+                            }))}
                             actions={[
                                 (rowData) => {
                                     const isMovieScreening =
+                                        theatreDetail.movies &&
                                         theatreDetail.movies.includes(
                                             rowData._id
                                         );
+
                                     return {
                                         icon: isMovieScreening ? Delete : Add,
                                         tooltip: isMovieScreening
                                             ? "Remove screening"
                                             : "Add screening",
                                         onClick: () => {
-                                            // Make API call to add or remove movie from theater
+                                            // Make API call to add or remove movie from theatre
                                         },
                                     };
                                 },
@@ -132,9 +139,14 @@ const TheatreModal = ({
                         <div className="m-1">
                             <Button
                                 variant="primary"
-                                onClick={updateOrAddTheatreDetail}>
+                                onClick={updateOrAddTheatreDetail}
+                                disabled={isRequestProcessing}>
                                 {showEditTheatreModal
-                                    ? "Edit Theatre"
+                                    ? isRequestProcessing
+                                        ? "Editing theatre..."
+                                        : "Edit Theatre"
+                                    : isRequestProcessing
+                                    ? "Adding theatre..."
                                     : "Add Theatre"}
                             </Button>
                         </div>

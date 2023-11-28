@@ -17,7 +17,7 @@ const Admin = () => {
     const [selectedItem, setSelectedItem] = useState("movies");
     const [bookingList, setBookingList] = useState([]);
     const [movieList, setMovieList] = useState([]);
-    const [theaterList, setTheaterList] = useState([]);
+    const [theatreList, setTheatreList] = useState([]);
     const [userList, setUserList] = useState([]);
 
     async function fetchUsers() {
@@ -29,9 +29,9 @@ const Admin = () => {
         setBookingList(bookings);
     }
 
-    async function fetchTheaters() {
+    async function fetchTheatres() {
         const theatres = await fetchAllTheatres();
-        setTheaterList(theatres);
+        setTheatreList(theatres);
     }
 
     async function fetchMovies() {
@@ -41,7 +41,7 @@ const Admin = () => {
 
     useEffect(() => {
         fetchBookings();
-        fetchTheaters();
+        fetchTheatres();
         fetchMovies();
         fetchUsers();
     }, []);
@@ -62,7 +62,7 @@ const Admin = () => {
                     movieList={movieList}
                     bookingList={bookingList}
                     userList={userList}
-                    theaterList={theaterList}
+                    theatreList={theatreList}
                 />
                 {selectedItem === "movies" && (
                     <Suspense fallback={<div>Loading.....</div>}>
@@ -70,14 +70,15 @@ const Admin = () => {
                             movieList={movieList}
                             userType={ADMIN}
                             setMovieList={setMovieList}
+                            fetchMovies={fetchMovies}
                         />
                     </Suspense>
                 )}
-                {selectedItem === "theaters" && (
+                {selectedItem === "theatres" && (
                     <Suspense fallback={<div>Loading.....</div>}>
                         <TheatreTable
-                            theaterList={theaterList}
-                            setTheatreList={setTheaterList}
+                            theatreList={theatreList}
+                            setTheatreList={setTheatreList}
                             userType={ADMIN}
                             movieList={[]}
                         />

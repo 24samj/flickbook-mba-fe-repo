@@ -9,7 +9,7 @@ const MovieTheatres = () => {
     const { movieId } = useParams();
 
     const [movieDetails, setMovieDetails] = useState({});
-    const [theaterList, setTheatreList] = useState([]);
+    const [theatreList, setTheatreList] = useState([]);
 
     async function fetchScreeningTheatres() {
         const theatres = await fetchAllTheatres();
@@ -53,7 +53,7 @@ const MovieTheatres = () => {
                     Select Theatre
                 </h2>
 
-                {theaterList.map((theatre) => (
+                {theatreList.map((theatre) => (
                     <li
                         key={theatre._id}
                         className="list-group-item p-2"

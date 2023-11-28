@@ -5,7 +5,10 @@ const BookingTable = ({ bookingList }) => {
         <>
             <MaterialTable
                 title="Bookings"
-                data={bookingList}
+                data={bookingList.map((booking) => ({
+                    ...booking,
+                    id: booking._id,
+                }))}
                 columns={[
                     {
                         title: "Booking ID",

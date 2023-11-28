@@ -2,26 +2,34 @@ import MaterialTable from "@material-table/core";
 import { Add, Delete, Edit } from "@material-ui/icons";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { ADMIN } from "../constants";
+import { CLIENT } from "../constants";
 import TheatreModal from "./theatreModal";
 import { AxiosInstance } from "../util/axiosInstances";
 
 const TheatreTable = ({
-    theaterList,
+    theatreList,
     setTheatreList,
     movieList,
-    setMovieList,
+
     userType,
+    fetchTheatresOfClient,
 }) => {
     const [theatreDetail, setTheatreDetail] = useState({});
     const [showAddTheatreModal, setShowAddTheatreModal] = useState(false);
     const [showEditTheatreModal, setShowEditTheatreModal] = useState(false);
+    const [isRequestProcessing, setIsRequestProcessing] = useState(false);
 
     const resetState = () => {
         setShowEditTheatreModal(false);
         setShowAddTheatreModal(false);
-        setShowEditTheatreModal(false);
-        setTheatreDetail({});
+        setTheatreDetail({
+            name: "",
+            description: "",
+            city: "",
+            pinCode: "",
+            movies: [],
+            ownerId: "",
+        });
     };
 
     const editTheatre = (theatre) => {
@@ -30,12 +38,14 @@ const TheatreTable = ({
     };
 
     const deleteTheatre = async (theatre) => {
+        const deletionId = theatre._id;
         try {
-            console.log("deleting threathe ", theatre);
-            await AxiosInstance.delete(
-                `/mba/api/v1/theatres/${theatreDetail._id}`
-            );
+            await AxiosInstance.delete(`/mba/api/v1/theatres/${deletionId}`);
+            // fetchTheatresOfClient();
             toast.success("Theatre deleted successfully");
+            setTheatreList(
+                theatreList.filter((theatre) => theatre._id !== deletionId)
+            );
         } catch (ex) {
             console.log(ex);
             toast.error(
@@ -61,6 +71,7 @@ const TheatreTable = ({
 
         if (showEditTheatreModal) {
             try {
+                setIsRequestProcessing(true);
                 await AxiosInstance.put(
                     `/mba/api/v1/theatres/${theatreDetail._id}`,
                     {
@@ -72,7 +83,7 @@ const TheatreTable = ({
                 );
                 toast.success("Theatre details updated successfully");
                 setTheatreList(
-                    theaterList.map((theatre) =>
+                    theatreList.map((theatre) =>
                         theatre._id === theatreDetail._id
                             ? theatreDetail
                             : theatre
@@ -84,18 +95,30 @@ const TheatreTable = ({
                 toast.error(
                     "Error occurred while updating theatre details. Please try again in a minute."
                 );
+            } finally {
+                setIsRequestProcessing(false);
             }
         } else {
             try {
-                console.log("adding new theatre:", theatreDetail);
-                await AxiosInstance.post("/mba/api/v1/theatres", theatreDetail);
+                setIsRequestProcessing(true);
+                await AxiosInstance.post("/mba/api/v1/theatres", {
+                    name: theatreDetail.name,
+                    description: theatreDetail.description,
+                    city: theatreDetail.city,
+                    pinCode: theatreDetail.pinCode,
+                    movies: [],
+                    ownerId: localStorage.getItem("_id"),
+                });
                 toast.success("Added new theatre successfully");
+                fetchTheatresOfClient();
                 setShowAddTheatreModal(false);
             } catch (ex) {
                 console.log(ex);
                 toast.error(
                     "Error occurred while adding new theatre. Please try again in a minute."
                 );
+            } finally {
+                setIsRequestProcessing(false);
             }
         }
     };
@@ -108,7 +131,10 @@ const TheatreTable = ({
                         ? "Theatres owned by you"
                         : "Theatres"
                 }
-                data={theaterList}
+                data={theatreList.map((theatre) => ({
+                    ...theatre,
+                    id: theatre._id,
+                }))}
                 columns={[
                     {
                         title: "Name",
@@ -130,19 +156,19 @@ const TheatreTable = ({
                 actions={[
                     {
                         icon: Delete,
-                        tooltip: "Delete Theater",
+                        tooltip: "Delete Theatre",
                         onClick: (event, rowData) => deleteTheatre(rowData),
                     },
                     {
                         icon: Edit,
-                        tooltip: "Edit Theater",
+                        tooltip: "Edit Theatre",
                         onClick: (event, rowData) => editTheatre(rowData),
                     },
-                    ...(userType === ADMIN
+                    ...(userType === CLIENT
                         ? [
                               {
                                   icon: Add,
-                                  tooltip: "Add Theater",
+                                  tooltip: "Add Theatre",
                                   isFreeAction: true,
                                   onClick: (event) => addTheatre(),
                               },
@@ -161,6 +187,8 @@ const TheatreTable = ({
                 updateOrAddTheatreDetail={updateOrAddTheatreDetail}
                 userType={userType}
                 movieList={movieList}
+                isRequestProcessing={isRequestProcessing}
+                setIsRequestProcessing={setIsRequestProcessing}
             />
         </>
     );

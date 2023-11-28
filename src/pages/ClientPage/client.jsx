@@ -9,16 +9,16 @@ const MovieTable = lazy(() => import("../../components/movieTable"));
 
 const Client = () => {
     const [movieList, setMovieList] = useState([]);
-    const [theaterList, setTheaterList] = useState([]);
+    const [theatreList, setTheatreList] = useState([]);
 
-    async function fetchTheaters() {
+    async function fetchTheatresOfClient() {
         const theatres = await fetchAllTheatres();
 
         const filteredTheatres = theatres.filter(
             (theatre) => theatre.ownerId === localStorage.getItem("_id")
         );
 
-        setTheaterList(filteredTheatres);
+        setTheatreList(filteredTheatres);
     }
 
     async function fetchMovies() {
@@ -27,8 +27,12 @@ const Client = () => {
     }
 
     useEffect(() => {
-        fetchTheaters();
+        fetchTheatresOfClient();
         fetchMovies();
+    }, []);
+
+    useEffect(() => {
+        fetchTheatresOfClient();
     }, []);
 
     return (
@@ -37,10 +41,11 @@ const Client = () => {
             <div className="container my-5">
                 <Suspense fallback={<div>Loading.....</div>}>
                     <TheatreTable
-                        theaterList={theaterList}
-                        setTheatreList={setTheaterList}
+                        theatreList={theatreList}
+                        setTheatreList={setTheatreList}
                         userType={CLIENT}
                         movieList={movieList}
+                        fetchTheatresOfClient={fetchTheatresOfClient}
                     />
                 </Suspense>
                 <div className="mt-5">

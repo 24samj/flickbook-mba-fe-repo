@@ -50,14 +50,23 @@ const UserTable = ({ userList, setUserList }) => {
 
     const resetState = () => {
         setShowUserModal(false);
-        setUserDetail({});
+        setUserDetail({
+            ...userDetail,
+            name: "",
+            email: "",
+            userType: "",
+            userStatus: "",
+        });
     };
 
     return (
         <>
             <MaterialTable
                 title="Users"
-                data={userList}
+                data={userList.map((user) => ({
+                    ...user,
+                    id: user._id,
+                }))}
                 columns={[
                     {
                         title: "User Id",
