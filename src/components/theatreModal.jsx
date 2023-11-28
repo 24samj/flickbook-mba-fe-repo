@@ -16,7 +16,7 @@ const TheatreModal = ({
     userType,
     movieList,
     isRequestProcessing,
-    setIsRequestProcessing,
+    addOrRemoveScreening,
 }) => {
     return (
         <Modal
@@ -87,8 +87,9 @@ const TheatreModal = ({
                         />
                     </div>
 
-                    {userType === CLIENT && (
+                    {userType === CLIENT && showEditTheatreModal && (
                         <MaterialTable
+                            key={isRequestProcessing ? "loading" : "data"}
                             title="Modify the screenings in your theatre"
                             columns={[
                                 {
@@ -122,7 +123,7 @@ const TheatreModal = ({
                                             ? "Remove screening"
                                             : "Add screening",
                                         onClick: () => {
-                                            // Make API call to add or remove movie from theatre
+                                            addOrRemoveScreening(rowData);
                                         },
                                     };
                                 },

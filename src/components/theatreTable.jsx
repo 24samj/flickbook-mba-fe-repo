@@ -10,7 +10,6 @@ const TheatreTable = ({
     theatreList,
     setTheatreList,
     movieList,
-
     userType,
     fetchTheatresOfClient,
 }) => {
@@ -32,6 +31,47 @@ const TheatreTable = ({
         });
     };
 
+    const addOrRemoveScreening = async (movie) => {
+        if (theatreDetail.movies.includes(movie._id)) {
+            try {
+                console.log("calling delete screening");
+                setIsRequestProcessing(true);
+                await AxiosInstance.put(
+                    `/mba/api/v1/theatres/${theatreDetail._id}/movies`,
+                    {
+                        movies: [movie._id],
+                        remove: "remove",
+                    }
+                );
+                toast.success(
+                    `Removed the screening of ${movie.name} from ${theatreDetail.name}.`
+                );
+            } catch (ex) {
+                console.log(ex);
+            } finally {
+                setIsRequestProcessing(false);
+            }
+        } else {
+            try {
+                setIsRequestProcessing(true);
+                await AxiosInstance.put(
+                    `/mba/api/v1/theatres/${theatreDetail._id}/movies`,
+                    {
+                        movies: [movie._id],
+                        add: "add",
+                    }
+                );
+                toast.success(
+                    `Added the screening of ${movie.name} to ${theatreDetail.name}.`
+                );
+            } catch (ex) {
+                console.log(ex);
+            } finally {
+                setIsRequestProcessing(false);
+            }
+        }
+    };
+
     const editTheatre = (theatre) => {
         setTheatreDetail(theatre);
         setShowEditTheatreModal(true);
@@ -42,7 +82,9 @@ const TheatreTable = ({
         try {
             await AxiosInstance.delete(`/mba/api/v1/theatres/${deletionId}`);
             // fetchTheatresOfClient();
-            toast.success("Theatre deleted successfully");
+            toast.success(
+                `Theatre ${theatre.name} has been deleted successfully!`
+            );
             setTheatreList(
                 theatreList.filter((theatre) => theatre._id !== deletionId)
             );
@@ -81,7 +123,9 @@ const TheatreTable = ({
                         pinCode: theatreDetail.pinCode,
                     }
                 );
-                toast.success("Theatre details updated successfully");
+                toast.success(
+                    `Theatre details of ${theatreDetail.name} updated successfully.`
+                );
                 setTheatreList(
                     theatreList.map((theatre) =>
                         theatre._id === theatreDetail._id
@@ -109,7 +153,9 @@ const TheatreTable = ({
                     movies: [],
                     ownerId: localStorage.getItem("_id"),
                 });
-                toast.success("Added new theatre successfully");
+                toast.success(
+                    `Added new theatre, ${theatreDetail.name} , successfully.`
+                );
                 fetchTheatresOfClient();
                 setShowAddTheatreModal(false);
             } catch (ex) {
@@ -189,6 +235,7 @@ const TheatreTable = ({
                 movieList={movieList}
                 isRequestProcessing={isRequestProcessing}
                 setIsRequestProcessing={setIsRequestProcessing}
+                addOrRemoveScreening={addOrRemoveScreening}
             />
         </>
     );
