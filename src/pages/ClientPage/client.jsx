@@ -36,7 +36,7 @@ const Client = () => {
     }, []);
 
     return (
-        <>
+        <div style={{ overflowX: "hidden" }}>
             <Navbar />
             <div className="container my-5">
                 <Suspense fallback={<div>Loading.....</div>}>
@@ -54,7 +54,7 @@ const Client = () => {
                     </Suspense>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

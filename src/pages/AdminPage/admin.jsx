@@ -47,7 +47,7 @@ const Admin = () => {
     }, []);
 
     return (
-        <>
+        <div style={{ overflowX: "hidden" }}>
             <Navbar />
             <div className="container bg-light">
                 <h3 className="text-center mt-2">
@@ -98,7 +98,7 @@ const Admin = () => {
                     </Suspense>
                 )}
             </div>
-        </>
+        </div>
     );
 };
 

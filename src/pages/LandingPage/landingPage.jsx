@@ -26,7 +26,7 @@ const LandingPage = () => {
     }, []);
 
     return (
-        <>
+        <div style={{ overflowX: "hidden" }}>
             <Navbar />
             <Slider />
             {!isLoading ? (
@@ -43,7 +43,7 @@ const LandingPage = () => {
                     <img src={Loader} alt="Loading..." />
                 </div>
             )}
-        </>
+        </div>
     );
 };
 
