@@ -12,7 +12,7 @@ const Navbar = () => {
     function onLogout() {
         localStorage.clear();
         toast.success("Logged out successfully.");
-        navigate("/");
+        navigate("/login");
     }
 
     return (
@@ -28,7 +28,11 @@ const Navbar = () => {
                                 : "/"
                         }
                         className="d-flex gap-2 align-items-center text-decoration-none">
-                        <img src={navLogo} style={{ height: "40px" }} alt="" />
+                        <img
+                            src={navLogo}
+                            style={{ height: "40px" }}
+                            alt="website name and logo"
+                        />
                         <div className="display-6 text-danger py-1">
                             FlickBook
                         </div>

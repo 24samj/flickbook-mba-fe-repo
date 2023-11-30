@@ -1,0 +1,9 @@
+.card-header {
+    transition: all 0.3s;
+}
+.card-header:hover {
+    background: rgb(255, 0, 0, 0.3);
+}
+.card-header::after {
+    color: white;
+}

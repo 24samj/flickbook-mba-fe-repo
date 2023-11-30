@@ -45,7 +45,10 @@ function App() {
 
     return (
         <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route
+                path="/"
+                element={<LandingPage allowedRoles={[CUSTOMER]} />}
+            />
             <Route path="/login" element={<Auth />} />
             <Route element={<RequireAuth allowedRoles={[ADMIN]} />}>
                 <Route path="/admin" element={<Admin />} />

@@ -1,6 +1,7 @@
 import { cilBarcode, cilMovie, cilPeople, cilVideo } from "@coreui/icons";
 import { CWidgetStatsD } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
+import "./statsDisplay.css";
 
 const StatsDisplay = ({
     selectedItem,
@@ -21,9 +22,11 @@ const StatsDisplay = ({
                     style={{
                         "--cui-card-cap-bg": "#00aced",
                         cursor: "pointer",
+                        fontWeight: "600",
+                        transition: "all 1s !important",
                     }}
                     values={[{ title: "Movies", value: movieList.length }]}
-                    color={selectedItem === "movies" ? "success" : undefined}
+                    color={selectedItem === "movies" ? "danger" : undefined}
                     onClick={() => setSelectedItem("movies")}
                 />
             </div>
@@ -36,9 +39,10 @@ const StatsDisplay = ({
                     style={{
                         "--cui-card-cap-bg": "#00aced",
                         cursor: "pointer",
+                        fontWeight: "600",
                     }}
                     values={[{ title: "Bookings", value: bookingList.length }]}
-                    color={selectedItem === "bookings" ? "success" : undefined}
+                    color={selectedItem === "bookings" ? "danger" : undefined}
                     onClick={() => setSelectedItem("bookings")}
                 />
             </div>
@@ -51,9 +55,10 @@ const StatsDisplay = ({
                     style={{
                         "--cui-card-cap-bg": "#00aced",
                         cursor: "pointer",
+                        fontWeight: "600",
                     }}
                     values={[{ title: "Users", value: userList.length }]}
-                    color={selectedItem === "users" ? "success" : undefined}
+                    color={selectedItem === "users" ? "danger" : undefined}
                     onClick={() => setSelectedItem("users")}
                 />
             </div>
@@ -66,10 +71,11 @@ const StatsDisplay = ({
                     style={{
                         "--cui-card-cap-bg": "#00aced",
                         cursor: "pointer",
+                        fontWeight: "600",
                     }}
                     values={[{ title: "Theatres", value: theatreList.length }]}
                     onClick={() => setSelectedItem("theatres")}
-                    color={selectedItem === "theatres" ? "success" : undefined}
+                    color={selectedItem === "theatres" ? "danger" : undefined}
                 />
             </div>
         </div>

@@ -154,7 +154,7 @@ const MovieTable = ({ movieList, userType, setMovieList, fetchMovies }) => {
                         render: (rowData) => (
                             <img
                                 src={rowData.posterUrl}
-                                alt=""
+                                alt="url for movie poster"
                                 height="100"
                                 width="80"
                             />
