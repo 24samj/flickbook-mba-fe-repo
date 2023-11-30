@@ -58,6 +58,7 @@ const Payment = ({ selectedSeats, movie, theatre, noOfSeats, totalCost }) => {
                 Proceed to payment
             </Button>
             <Modal
+                style={{ backdropFilter: "blur(10px)" }}
                 size="sm"
                 show={isOpen}
                 onHide={handleHide}

@@ -13,7 +13,16 @@ const MovieTable = ({ movieList, userType, setMovieList, fetchMovies }) => {
     const [isRequestProcessing, setIsRequestProcessing] = useState(false);
 
     const addMovie = (theatre) => {
-        setMovieDetail({});
+        setMovieDetail({
+            name: "",
+            description: "",
+            language: [],
+            director: "",
+            posterUrl: "",
+            trailerUrl: "",
+            releaseStatus: "RELEASED",
+            releaseDate: "",
+        });
         setShowAddMovieModal(true);
     };
 
@@ -22,34 +31,64 @@ const MovieTable = ({ movieList, userType, setMovieList, fetchMovies }) => {
         setShowEditMovieModal(true);
     };
 
-    const editMovieDetails = async (event) => {
+    const addOrEditMovieDetails = async (event) => {
         event.preventDefault();
+        if (event.target.innerText.includes("Edit")) {
+            try {
+                setIsRequestProcessing(true);
+                const response = await AxiosInstance.put(
+                    `/mba/api/v1/movies/${movieDetail._id}`,
+                    {
+                        name: movieDetail.name,
+                        description: movieDetail.description,
+                        director: movieDetail.director,
+                        posterUrl: movieDetail.posterUrl,
+                        trailerUrl: movieDetail.trailerUrl,
+                        releaseStatus: movieDetail.releaseStatus,
+                        releaseDate: movieDetail.releaseDate,
+                    }
+                );
+                const updatedMovieList = movieList.map((m) =>
+                    m._id === movieDetail._id ? movieDetail : m
+                );
+                toast.success(
+                    `Movie details for ${movieDetail.name} updated successfully.`
+                );
+                // fetchMovies();
+                setMovieList(updatedMovieList);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                resetState();
+                setIsRequestProcessing(false);
+            }
+        } else {
+            try {
+                setIsRequestProcessing(true);
+                const response = await AxiosInstance.post(
+                    "/mba/api/v1/movies",
+                    {
+                        name: movieDetail.name,
+                        description: movieDetail.description,
+                        language: [movieDetail.language],
+                        director: movieDetail.director,
+                        posterUrl: movieDetail.posterUrl,
+                        trailerUrl: movieDetail.trailerUrl,
+                        releaseStatus: movieDetail.releaseStatus,
+                        releaseDate: movieDetail.releaseDate,
+                    }
+                );
 
-        try {
-            setIsRequestProcessing(true);
-            const response = await AxiosInstance.put(
-                `/mba/api/v1/movies/${movieDetail._id}`,
-                {
-                    name: movieDetail.name,
-                    description: movieDetail.description,
-                    director: movieDetail.director,
-                    posterUrl: movieDetail.posterUrl,
-                    trailerUrl: movieDetail.trailerUrl,
-                    releaseStatus: movieDetail.releaseStatus,
-                    releaseDate: movieDetail.releaseDate,
-                }
-            );
-            const updatedMovieList = movieList.map((m) =>
-                m._id === movieDetail._id ? movieDetail : m
-            );
-            toast.success("Movie updated SUccessfully!");
-            // fetchMovies();
-            setMovieList(updatedMovieList);
-        } catch (error) {
-            console.log(error);
-        } finally {
-            resetState();
-            setIsRequestProcessing(false);
+                toast.success(
+                    `New movie, ${movieDetail.name}, added successfully.`
+                );
+                fetchMovies();
+            } catch (error) {
+                console.log(error);
+            } finally {
+                resetState();
+                setIsRequestProcessing(false);
+            }
         }
     };
 
@@ -63,6 +102,7 @@ const MovieTable = ({ movieList, userType, setMovieList, fetchMovies }) => {
                 (movie) => movie._id !== deletionId
             );
             setMovieList(updatedMovieList);
+            toast.success(`${movie.name} deleted successfully.`);
         } catch (error) {
             console.log(error);
         }
@@ -170,7 +210,7 @@ const MovieTable = ({ movieList, userType, setMovieList, fetchMovies }) => {
                 addMovie={addMovie}
                 movieDetail={movieDetail}
                 changeMovieDetails={changeMovieDetails}
-                editMovieDetails={editMovieDetails}
+                addOrEditMovieDetails={addOrEditMovieDetails}
                 isRequestProcessing={isRequestProcessing}
             />
         </>

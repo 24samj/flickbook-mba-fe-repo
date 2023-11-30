@@ -8,7 +8,7 @@ const MovieModal = ({
     addMovie,
     movieDetail,
     changeMovieDetails,
-    editMovieDetails,
+    addOrEditMovieDetails,
     isRequestProcessing,
 }) => {
     const formatDate = (dateString) => {
@@ -17,6 +17,7 @@ const MovieModal = ({
     };
     return (
         <Modal
+            style={{ backdropFilter: "blur(10px)" }}
             show={showAddMovieModal || showEditMovieModal}
             onHide={resetState}
             backdrop="static"
@@ -29,7 +30,9 @@ const MovieModal = ({
             </Modal.Header>
             <Modal.Body>
                 <form
-                    onSubmit={showEditMovieModal ? editMovieDetails : addMovie}>
+                    onSubmit={
+                        showEditMovieModal ? addOrEditMovieDetails : addMovie
+                    }>
                     <div className="input-group my-2">
                         <span className="input-group-text">Name</span>
                         <input
@@ -147,7 +150,7 @@ const MovieModal = ({
                         <div className="m-1">
                             <Button
                                 variant="primary"
-                                onClick={editMovieDetails}
+                                onClick={addOrEditMovieDetails}
                                 disabled={isRequestProcessing}>
                                 {showEditMovieModal
                                     ? isRequestProcessing
